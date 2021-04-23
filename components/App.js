@@ -6,10 +6,10 @@
  * @flow strict-local
  */
 
-import React, {useReducer} from 'react';
-import Home from './Home';
-import {reducer} from '../context/reducer'
-import {stateContext} from '../context/stateContext'
+import React, { useReducer } from "react";
+import Home from "./Home";
+import { reducer } from "../context/reducer";
+import { stateContext } from "../context/stateContext";
 // import {
 //   SafeAreaView,
 //   ScrollView,
@@ -20,25 +20,15 @@ import {stateContext} from '../context/stateContext'
 //   View,
 // } from 'react-native';
 
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
-
-import Loading from './Loading';
-
 const App = () => {
   const initialState = {
-    heroes:[]
-  }
-  const [state, dispatch] = useReducer(reducer, initialState)
+    heroes: [],
+   
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <stateContext.Provider value = {{heroes:state.heroes}}>
-      {/* <Loading/> */}
-<Home/>
+    <stateContext.Provider value={{ state, dispatch }}>
+      <Home />
     </stateContext.Provider>
   );
 };
