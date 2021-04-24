@@ -11,11 +11,11 @@ import {
   TouchableOpacity
 } from "react-native";
 
-import { stateContext } from "../context/stateContext";
+import { StateContext } from "../context/StateContext";
 
 export default function Search(props) {
   const [inputText, onChangeInputText] = useState("");
-  const { state, dispatch } = useContext(stateContext);
+  const { state, dispatch } = useContext(StateContext);
 
   async function searchHero () {
     const result = await fetch(`https://swapi.dev/api/people/?search=${inputText}`);

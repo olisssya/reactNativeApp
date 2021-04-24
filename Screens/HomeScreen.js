@@ -1,7 +1,6 @@
-import React, { useContext, useEffect,useReducer } from "react";
+import React, {  useEffect, useReducer } from "react";
 import {
   Alert,
-  Link,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
@@ -9,10 +8,9 @@ import {
   View,
 } from "react-native";
 import SearchInput from "../components/Search";
-import { stateContext } from "../context/stateContext";
-import { showHero } from "../navigation";
+import { StateContext } from "../context/StateContext";
 import { reducer } from "../context/reducer";
-
+import { Navigation } from "react-native-navigation";
 
 export default function HomeScreen(props) {
   const initialState = {
@@ -29,16 +27,27 @@ export default function HomeScreen(props) {
       Alert.alert("Нет ни одного героя :(");
     }
   }, []);
+  const showHero = (hero) => {
+    Navigation.push(props.componentId, {
+      component: {
+        name: "HeroScreen",
+        passProps: {
+          hero:hero
+        }
+      },
+     
+    });
+  };
 
   return (
-    <stateContext.Provider value={{ state, dispatch }}>
+    <StateContext.Provider value={{ state, dispatch }}>
       <View style={styles.container}>
         <SearchInput />
         <ScrollView contentContainerStyle={styles.wrapper}>
           {state.heroes.map((hero) => (
             <TouchableOpacity
               key={hero.name}
-              onPress={showHero}
+              onPress={()=>showHero(hero)}
               activeOpacity={0.5}
               style={styles.heroLink}
             >
@@ -47,9 +56,10 @@ export default function HomeScreen(props) {
           ))}
         </ScrollView>
       </View>
-    </stateContext.Provider>
+    </StateContext.Provider>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
